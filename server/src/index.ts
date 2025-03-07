@@ -1,13 +1,13 @@
-import "dotenv/config";
-const PORT = process.env.PORT;
-const APP_ORIGIN = process.env.APP_ORIGIN as string;
-
 import express, { type Request, type Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorHandler";
 import { OK } from "./constants/http";
 import authRoutes from "./routes/auth.route";
+import { APP_ORIGIN, PORT } from "./constants/env";
+import { userRoutes } from "./routes/user.route";
+import { authenticate } from "./middlewares/authenticate";
+import { sessionRoutes } from "./routes/session.route";
 
 const app = express();
 
@@ -28,6 +28,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/user", authenticate, userRoutes);
+app.use("/sessions", authenticate, sessionRoutes);
 
 app.use(errorHandler);
 

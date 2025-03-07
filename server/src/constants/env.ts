@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 function getEnv(key: string, defaultValue?: string): string {
   const value = process.env[key] || defaultValue;
 
