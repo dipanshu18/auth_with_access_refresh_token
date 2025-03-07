@@ -249,6 +249,8 @@ export const verifyEmail = async (code: string) => {
     },
   });
 
+  console.log(validCode);
+
   if (!validCode) {
     throw new AppError(NOT_FOUND, "Invalid or expired verification code");
   }
@@ -321,6 +323,7 @@ export const sendPasswordResetEmail = async (email: string) => {
     verificationCode.id
   }&exp=${expiresAt.getTime()}`;
   // send email with the url
+  console.log(url);
 
   // return success
   return {
